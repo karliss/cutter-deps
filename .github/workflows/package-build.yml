@@ -29,9 +29,9 @@ jobs:
         export TZ=UTC
         ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
     - name: build linux
-      shell: bash
+      uses: ./.github/actions/build_linux
+    - name: build linux outputs
       run: |
-        make
         echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
         echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
     - uses: actions/upload-artifact@v2
