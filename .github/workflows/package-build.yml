@@ -18,7 +18,7 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     container:
-      image: ubuntu:18.04
+      image: Dockerfile
     strategy:
       fail-fast: false
     steps:
@@ -31,18 +31,6 @@ jobs:
     - name: build linux
       shell: bash
       run: |
-        apt-get -y update
-        apt-get -y install build-essential \
-                             libclang-8-dev \
-                             llvm-8 \
-                             libglib2.0-dev \
-                             mesa-common-dev \
-                             libgl1-mesa-dev \
-                             zlib1g-dev \
-                             libpcre2-dev \
-                             cmake \
-                             curl \
-                             wget
         make
         echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
         echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
