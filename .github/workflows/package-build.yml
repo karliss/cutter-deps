@@ -17,8 +17,6 @@ concurrency:
 jobs:
   build-linux:
     runs-on: ubuntu-latest
-    container:
-      image: Dockerfile
     strategy:
       fail-fast: false
     steps:
