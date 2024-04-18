@@ -11,3 +11,4 @@ RUN apt update
 RUN apt install -y cmake g++-9 libxcb1-dev libgtk-3-dev libxcb-*-dev libxkbcommon-dev libxkbcommon-x11-dev
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9
 RUN update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9 
+RUN apt install -y libffi-dev libclang-10-dev llvm-10 clang-10
