@@ -181,7 +181,7 @@ ifeq (${PLATFORM},macos)
 	make -C "${PYTHON_SRC_DIR}" frameworkinstallframework > /dev/null
 else
 	make -C "${PYTHON_SRC_DIR}" install > /dev/null
-endif
+endif	
 
 ifeq (${PLATFORM},linux)
 	for lib in "${PYTHON_PREFIX}/lib/python${PYTHON_VERSION_MAJOR_MINOR}/lib-dynload"/*.so ; do \
@@ -332,7 +332,7 @@ ifeq (${PLATFORM},win)
 	cd "${PYSIDE_SRC_DIR}/build/pyside6" && ninja install
 	cp "${LLVM_INSTALL_DIR}/bin/libclang.dll" "${PYSIDE_PREFIX}/bin/"
 else
-	make -C "${PYSIDE_SRC_DIR}/build/pyside6" -j
+	make -C "${PYSIDE_SRC_DIR}/build/pyside6" -j1
 	make -C "${PYSIDE_SRC_DIR}/build/pyside6" install
 endif
 
