@@ -16,15 +16,20 @@ concurrency:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
-    - name: build linux
-      uses: ./.github/actions/build_linux
     - name: build linux outputs
       run: |
+        apt-get -y update
+        apt-get -y install build-essential \
+                             libclang-10-dev \
+                             llvm-10 \
+                             cmake \
+                             curl
+        make
         echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
         echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
     - uses: actions/upload-artifact@v2
