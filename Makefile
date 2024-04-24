@@ -32,7 +32,8 @@ PYTHON_SRC_DIR=Python-${PYTHON_VERSION}
 PYTHON_DEPS=python
 PKG_FILES+=python
 ifeq (${PLATFORM},macos)
-  PYTHON_FRAMEWORK=${ROOT_DIR}/python/Python.framework
+  PYTHON_FRAMWORK_DIR=${ROOT_DIR}/python/Library/Frameworks
+  PYTHON_FRAMEWORK=${PYTHON_FRAMWORK_DIR}/Python.framework
   PYTHON_PREFIX=${PYTHON_FRAMEWORK}/Versions/Current
 else
   PYTHON_PREFIX:=${ROOT_DIR}/python
@@ -165,12 +166,12 @@ ifeq (${PLATFORM}-${ARCH},macos-x86_64)
 	cd "${PYTHON_SRC_DIR}" && \
 		CPPFLAGS="${CPPFLAGS} -I$(shell brew --prefix openssl)/include" \
 		LDFLAGS="${LDFLAGS} -L$(shell brew --prefix openssl)/lib" \
-		./configure --enable-framework="${ROOT_DIR}/python" --prefix="${ROOT_DIR}/python_prefix_tmp"
+		./configure --enable-framework="${PYTHON_FRAMWORK_DIR}" --prefix="${ROOT_DIR}/python_prefix_tmp"
 	# Patch for https://github.com/rizinorg/cutter/issues/424
 	sed -i ".original" "s/#define HAVE_GETENTROPY 1/#define HAVE_GETENTROPY 0/" "${PYTHON_SRC_DIR}/pyconfig.h"
 else ifeq (${PLATFORM},macos)
 	cd "${PYTHON_SRC_DIR}" && \
-		./configure --enable-framework="${ROOT_DIR}/python" --prefix="${ROOT_DIR}/python_prefix_tmp"
+		./configure --enable-framework="${PYTHON_FRAMWORK_DIR}" --prefix="${ROOT_DIR}/python_prefix_tmp"
 else
 	cd "${PYTHON_SRC_DIR}" && ./configure --enable-shared --prefix="${PYTHON_PREFIX}"
 endif
@@ -178,7 +179,7 @@ endif
 	make -C "${PYTHON_SRC_DIR}" -j > /dev/null
 
 ifeq (${PLATFORM},macos)
-	make -C "${PYTHON_SRC_DIR}" frameworkinstallframework > /dev/null
+	make -C "${PYTHON_SRC_DIR}" frameworkinstallframework
 else
 	make -C "${PYTHON_SRC_DIR}" install > /dev/null
 endif	
