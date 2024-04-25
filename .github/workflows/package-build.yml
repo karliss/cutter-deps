@@ -54,15 +54,31 @@ jobs:
           asset_content_type: ${{ env.UPLOAD_ASSET_TYPE }}
 
   build-macos:
-    runs-on: macos-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
+    name: [
+          macos-x86_64,
+          macos-arm64,
+        ]
+        include:
+          - name: macos-x86_64
+            os: macos-11
+            arch: x86_64
+          - name: macos-arm64
+            os: macos-14
+            arch: arm64
     steps:
     - uses: actions/checkout@v3
     - name: build macos
       run: |
         set -euo pipefail
         brew install llvm ccache
+        if [ "${{ matrix.arch }}" = "arm64" ]; then
+          export PATH="/opt/homebrew/opt/llvm/bin:$PATH";
+        else
+          export PATH="/usr/local/opt/llvm/bin:$PATH";
+        fi
         export PATH="/usr/local/opt/llvm/bin:$PATH";
         echo "###### Applications ######"
         ls /Applications
@@ -82,7 +98,7 @@ jobs:
         export CCFLAGS=" -isysroot $BUILD_SDK_PATH "
         export CXXFLAGS=" -isysroot $BUILD_SDK_PATH "
         make
-        echo UPLOAD_FILE=cutter-deps-macos-x86_64.tar.gz >> $GITHUB_ENV
+        echo UPLOAD_FILE=cutter-deps-macos-${{ matrix.arch }}.tar.gz >> $GITHUB_ENV
         echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
     - uses: actions/upload-artifact@v2
       with:
