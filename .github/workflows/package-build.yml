@@ -25,8 +25,8 @@ jobs:
       run: |
         sudo apt-get -y update
         sudo apt-get -y install build-essential \
-                             libclang-10-dev \
-                             llvm-10 \
+                             libclang-11-dev \
+                             llvm-11 \
                              cmake \
                              curl
         make
