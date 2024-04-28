@@ -84,9 +84,8 @@ jobs:
         echo "$BUILD_SDK_PATH"
         echo "###### xcode-select Info ######"
         xcode-select -print-path
-        echo "###### LLVM Info ######"
-        which llvm-config
-        llvm-config --version
+        which clang
+        brew info llvm
         echo "###### Make ######"
         export MACOSX_DEPLOYMENT_TARGET=11.0
         export MIN_SUPPORTED_MACOSX_DEPLOYMENT_TARGET=11.0
