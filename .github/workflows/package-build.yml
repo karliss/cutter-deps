@@ -93,8 +93,8 @@ jobs:
         which llvm-config
         llvm-config --version
         echo "###### Make ######"
-        export MACOSX_DEPLOYMENT_TARGET=11.0
-        export MIN_SUPPORTED_MACOSX_DEPLOYMENT_TARGET=11.0
+        #export MACOSX_DEPLOYMENT_TARGET=11.0
+        #export MIN_SUPPORTED_MACOSX_DEPLOYMENT_TARGET=11.0 #TODO: set reasonable version for arm64
         export CFLAGS=" -isysroot $BUILD_SDK_PATH "
         export CCFLAGS=" -isysroot $BUILD_SDK_PATH "
         export CXXFLAGS=" -isysroot $BUILD_SDK_PATH "
