@@ -272,7 +272,7 @@ endif
 pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 	@echo ""
 	@echo "#########################"
-	@echo "# Building Shiboken2    #"
+	@echo "# Building Shiboken     #"
 	@echo "#########################"
 	@echo ""
 
@@ -295,7 +295,7 @@ ifeq (${PLATFORM},win)
 	cd "${PYSIDE_SRC_DIR}/build/shiboken6" && ninja -j ${BUILD_THREADS}
 	cd "${PYSIDE_SRC_DIR}/build/shiboken6" && ninja install
 else
-	make -C "${PYSIDE_SRC_DIR}/build/shiboken6" -j2 > /dev/null
+	make -C "${PYSIDE_SRC_DIR}/build/shiboken6" -j > /dev/null
 	make -C "${PYSIDE_SRC_DIR}/build/shiboken6" install > /dev/null
 	@echo "shiboken compiled"
 endif

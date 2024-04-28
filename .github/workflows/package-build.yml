@@ -75,7 +75,11 @@ jobs:
       run: |
         set -euo pipefail
         brew install llvm ccache
-        export CMAKE_PREFIX_PATH="$HOMEBREW_PREFIX/opt/llvm:$PATH";
+        if [ "${{ matrix.arch }}" = "arm64" ]; then
+          export CMAKE_PREFIX_PATH="$HOMEBREW_PREFIX/opt/llvm";
+        else
+          export CMAKE_PREFIX_PATH="/usr/local/opt/llvm";
+        fi
         echo "###### Applications ######"
         ls /Applications
         echo "###### XCode Info ######"
