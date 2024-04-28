@@ -75,7 +75,7 @@ jobs:
       run: |
         set -euo pipefail
         brew install llvm ccache
-        export CMAKE_PREFIX_PATH="$HOMBREW_PREFIX/opt/llvm:$PATH";
+        export CMAKE_PREFIX_PATH="$HOMEBREW_PREFIX/opt/llvm:$PATH";
         echo "###### Applications ######"
         ls /Applications
         echo "###### XCode Info ######"
