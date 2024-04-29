@@ -59,18 +59,18 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
-    - name: VSSetup
+    - name: build windows ouptuts
       shell: cmd
       run: |
         pwd
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
         pwd
         C:/shells/msys2bash.cmd "./scripts/build_win.sh"
-    - name: build windows outputs
+    - name: msys setup
       shell: 'C:/shells/msys2bash.cmd {0}'
       run: |
         set -euo pipefail
-        which cl.exe
+        echo "TODO install missing msys packages"
         # make
     - name: set windows outputs
       shell: bash
