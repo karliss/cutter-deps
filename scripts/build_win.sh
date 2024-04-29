@@ -4,6 +4,5 @@ which gcc
 pacman -Q
 export PATH=`echo $PATH | tr ":" "\n" | grep -v "mingw64" | grep -v "Strawberry" | tr "\n" ":"`
 echo $PATH
-echo "checking gcc2"
-which gcc
+which gcc || echo "No GCC in path, OK!"
 make PLATFORM=win
