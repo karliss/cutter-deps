@@ -65,14 +65,13 @@ jobs:
         pwd
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
         pwd
-        call C:/shells/msys2bash.cmd "which cl.exe"
+        C:/shells/msys2bash.cmd "./scripts/build_win.sh"
     - name: build windows outputs
       shell: 'C:/shells/msys2bash.cmd {0}'
       run: |
         set -euo pipefail
         which cl.exe
-        make
-        
+        # make
     - name: set windows outputs
       shell: bash
       run: |
