@@ -73,7 +73,7 @@ jobs:
         pwd
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
         where cl
-        type C:/shells/msys2bash.cmd
+        set MSYS2_PATH_TYPE=inherit
         C:/shells/msys2bash.cmd -use-full-path "./scripts/build_win.sh"
 
     - name: set windows outputs
