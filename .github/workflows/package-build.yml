@@ -66,7 +66,7 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
         where cl
         where cl.exe
-        C:/shells/msys2bash.cmd --help
+        C:/shells/msys2bash.cmd -help || C:/shells/msys2bash.cmd /help
         C:/shells/msys2bash.cmd "./scripts/build_win.sh"
     - name: msys setup
       shell: 'C:/shells/msys2bash.cmd {0}'
