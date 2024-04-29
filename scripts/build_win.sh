@@ -1,3 +1,5 @@
 set -euo pipefail
-env
+which cl
+which gcc
+pacman -Q
 make PLATFORM=win
