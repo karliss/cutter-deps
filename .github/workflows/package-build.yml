@@ -52,7 +52,43 @@ jobs:
           asset_path: ${{ env.UPLOAD_FILE }}
           asset_name: ${{ env.UPLOAD_FILE }}
           asset_content_type: ${{ env.UPLOAD_ASSET_TYPE }}
-
+  build-windows:
+    runs-on: windows-2019
+    strategy:
+      fail-fast: false
+    steps:
+    - uses: actions/checkout@v3
+    - name: build windows outputs
+      shell: 
+      run: |
+        where msys2bash.cmd
+        msys2bash.cmd -c ls
+        adsfasdf
+    - name: set windows outputs
+      shell: bash
+      run: |
+        echo UPLOAD_FILE=cutter-deps-windows-x86_64.tar.gz >> $GITHUB_ENV
+        echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
+    - uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.UPLOAD_FILE }}
+        path: ${{ env.UPLOAD_FILE }}
+    - name: Get release
+      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+      id: get_release
+      uses: karliss/get-release@bee343636450eb2e9b85d9f1592d8d73c408dc74
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload release assets
+      if: steps.get_release.outputs.upload_url != null
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ${{ env.UPLOAD_FILE }}
+          asset_name: ${{ env.UPLOAD_FILE }}
+          asset_content_type: ${{ env.UPLOAD_ASSET_TYPE }}
   build-macos:
     runs-on: ${{ matrix.os }}
     strategy:
