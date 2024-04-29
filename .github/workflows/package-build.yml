@@ -59,7 +59,7 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
-    - name VSSetup
+    - name: VSSetup
       shell: cmd
       run: |
         pwd
