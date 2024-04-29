@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   build-linux:
+    if: false
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
@@ -59,11 +60,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: build windows outputs
-      shell: cmd
+      shell: 'C:/shells/msys2bash.cmd {0}'
       run: |
-        where git.exe
-        where msys2bash.cmd
-        msys2bash.cmd -c ls
+        ls
+        pwd
+        make
         adsfasdf
     - name: set windows outputs
       shell: bash
@@ -91,6 +92,7 @@ jobs:
           asset_name: ${{ env.UPLOAD_FILE }}
           asset_content_type: ${{ env.UPLOAD_ASSET_TYPE }}
   build-macos:
+    if: false
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
