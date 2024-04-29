@@ -59,7 +59,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: build windows outputs
+      shell: cmd
       run: |
+        where git.exe
         where msys2bash.cmd
         msys2bash.cmd -c ls
         adsfasdf
