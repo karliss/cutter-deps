@@ -161,6 +161,7 @@ python: ${PYTHON_SRC_DIR} ${PATCHELF_TARGET}
 	@echo "# Building Python       #"
 	@echo "#########################"
 	@echo ""
+	@echo "platform ${PLATFORM}"
 
 ifeq (${PLATFORM}-${ARCH},macos-x86_64)
 	cd "${PYTHON_SRC_DIR}" && \
