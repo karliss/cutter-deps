@@ -68,9 +68,9 @@ jobs:
         cat "/C/shells/msys2bash.cmd"
         # make
     - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
     - name: build windows ouptuts
       shell: cmd
       run: |
