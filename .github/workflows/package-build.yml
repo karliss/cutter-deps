@@ -67,12 +67,17 @@ jobs:
         echo "TODO install missing msys packages"
         cat "/C/shells/msys2bash.cmd"
         # make
+    - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
     - name: build windows ouptuts
       shell: cmd
       run: |
         pwd
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
         where cl
+        where python
         set MSYS2_PATH_TYPE=inherit
         C:/shells/msys2bash.cmd "./scripts/build_win.sh"
 
