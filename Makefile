@@ -292,14 +292,8 @@ pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 		-DCMAKE_BUILD_TYPE=Release \
 		../../sources/shiboken6
 
-ifeq (${PLATFORM},win)
-	cd "${PYSIDE_SRC_DIR}/build/shiboken6" && ninja -j ${BUILD_THREADS}
-	cd "${PYSIDE_SRC_DIR}/build/shiboken6" && ninja install
-else
-	make -C "${PYSIDE_SRC_DIR}/build/shiboken6" -j > /dev/null
-	make -C "${PYSIDE_SRC_DIR}/build/shiboken6" install > /dev/null
+	cmake --install "${PYSIDE_SRC_DIR}/build/shiboken6" -j
 	@echo "shiboken compiled"
-endif
 
 ifeq (${PLATFORM},macos)
 	install_name_tool -add_rpath @executable_path/../../qt/lib "${PYSIDE_PREFIX}/bin/shiboken6"
