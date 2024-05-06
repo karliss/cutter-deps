@@ -311,7 +311,7 @@ endif
 	@echo ""
 
 	#-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" \
-	ls $QT_PREFIX
+	ls ${QT_PREFIX}
 
 	mkdir -p "${PYSIDE_SRC_DIR}/build/pyside6"
 	cd "${PYSIDE_SRC_DIR}/build/pyside6" && cmake \
