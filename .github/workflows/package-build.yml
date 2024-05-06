@@ -59,14 +59,11 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
-    - name: msys setup
-      shell: 'C:/shells/msys2bash.cmd {0}'
-      run: |
-        set -euo pipefail
-        pwd
-        echo "TODO install missing msys packages"
-        cat "/C/shells/msys2bash.cmd"
-        # make
+    #- name: msys setup
+    #  shell: 'C:/shells/msys2bash.cmd {0}'
+    #  run: |
+    #    set -euo pipefail
+    #    pwd
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
