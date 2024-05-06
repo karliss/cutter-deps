@@ -292,7 +292,8 @@ pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 		-DCMAKE_BUILD_TYPE=Release \
 		../../sources/shiboken6
 
-	cmake --install "${PYSIDE_SRC_DIR}/build/shiboken6" -j
+	cmake --build "${PYSIDE_SRC_DIR}/build/shiboken6" -j
+	cmake --install "${PYSIDE_SRC_DIR}/build/shiboken6"
 	@echo "shiboken compiled"
 
 ifeq (${PLATFORM},macos)
