@@ -331,8 +331,7 @@ endif
 		../../sources/pyside6
 
 ifeq (${PLATFORM},win)
-	cd "${PYSIDE_SRC_DIR}/build/pyside6" && ninja -j ${BUILD_THREADS}
-	cd "${PYSIDE_SRC_DIR}/build/pyside6" && ninja install
+	cmake --install "${PYSIDE_SRC_DIR}/build/pyside6"
 	cp "${LLVM_INSTALL_DIR}/bin/libclang.dll" "${PYSIDE_PREFIX}/bin/"
 else
 	make -C "${PYSIDE_SRC_DIR}/build/pyside6" -j1
@@ -374,6 +373,7 @@ clean-env.sh:
 
 ${PACKAGE_FILE}: ${PKG_FILES}
 	tar -czf "${PACKAGE_FILE}" ${PKG_FILES}
+	sha256sum "${PACKAGE_FILE}"
 
 .PHONY: pkg
 pkg: ${PACKAGE_FILE}
