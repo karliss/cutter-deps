@@ -270,6 +270,14 @@ ifneq (${QT_OPENGL_ENABLED},1)
 	patch "${PYSIDE_SRC_DIR}/sources/pyside2/PySide2/QtWidgets/CMakeLists.txt" patch/pyside-5.12.1/QtWidgets-CMakeLists.txt.patch
 endif
 
+ifeq (${PLATFORM},win)
+# automatic msys -> windows path conversion doesn't detect semicolon separated paths
+# cmake uses ; on all platforms
+EXTRA_CMAKE_PREFIX="${QT_PREFIX}:${PYSIDE_PREFIX}"
+else
+EXTRA_CMAKE_PREFIX="${QT_PREFIX};${PYSIDE_PREFIX}"
+endif
+
 pyside: ${PYTHON_DEPS} ${QT_DEPS} ${PYSIDE_SRC_DIR}
 	@echo ""
 	@echo "#########################"
@@ -314,13 +322,6 @@ endif
 	#-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" 
 	#-DCMAKE_PREFIX_PATH="D:/a/cutter-deps/cutter-deps/qt;D:/a/cutter-deps/cutter-deps/pyside"
 
-ifeq (${PLATFORM},win)
-	# automatic msys -> windows path conversion doesn't detect semicolon separated paths
-	# cmake uses ; on all platforms
-	EXTRA_CMAKE_PREFIX="${QT_PREFIX}:${PYSIDE_PREFIX}"
-else
-	EXTRA_CMAKE_PREFIX="${QT_PREFIX};${PYSIDE_PREFIX}"
-endif
 	@echo ${EXTRA_CMAKE_PREFIX}
 
 	mkdir -p "${PYSIDE_SRC_DIR}/build/pyside6"
