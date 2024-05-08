@@ -310,13 +310,15 @@ endif
 	@echo "#########################"
 	@echo ""
 
-	#-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" \
+	#TODO: cleanup this
+	#-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" 
+	#-DCMAKE_PREFIX_PATH="D:/a/cutter-deps/cutter-deps/qt;D:/a/cutter-deps/cutter-deps/pyside" \
 	ls ${QT_PREFIX}
 
 	mkdir -p "${PYSIDE_SRC_DIR}/build/pyside6"
 	cd "${PYSIDE_SRC_DIR}/build/pyside6" && cmake \
 		${PLATFORM_CMAKE_ARGS} \
-		-DCMAKE_PREFIX_PATH="D:/a/cutter-deps/cutter-deps/qt;D:/a/cutter-deps/cutter-deps/pyside" \
+		-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" \
 		-DCMAKE_INSTALL_PREFIX="${PYSIDE_PREFIX}" \
 		-DUSE_PYTHON_VERSION=3 \
 		-DPYTHON_LIBRARY="${PYTHON_LIBRARY}" \
