@@ -313,12 +313,20 @@ endif
 	#TODO: cleanup this
 	#-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" 
 	#-DCMAKE_PREFIX_PATH="D:/a/cutter-deps/cutter-deps/qt;D:/a/cutter-deps/cutter-deps/pyside" \
-	ls ${QT_PREFIX}
+ifeq (${PLATFORM},win)
+	# automatic msys -> windows path conversion doesn't detect semicolon separated paths
+	# cmake uses ; on all platforms
+	EXTRA_CMAKE_PREFIX="${QT_PREFIX}:${PYSIDE_PREFIX}"
+else
+	EXTRA_CMAKE_PREFIX="${QT_PREFIX};${PYSIDE_PREFIX}"
+endif
+	@echo ${EXTRA_CMAKE_PREFIX}
+
 
 	mkdir -p "${PYSIDE_SRC_DIR}/build/pyside6"
 	cd "${PYSIDE_SRC_DIR}/build/pyside6" && cmake \
 		${PLATFORM_CMAKE_ARGS} \
-		-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" \
+		-DCMAKE_PREFIX_PATH="${EXTRA_CMAKE_PREFIX}" \
 		-DCMAKE_INSTALL_PREFIX="${PYSIDE_PREFIX}" \
 		-DUSE_PYTHON_VERSION=3 \
 		-DPYTHON_LIBRARY="${PYTHON_LIBRARY}" \
