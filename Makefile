@@ -329,6 +329,7 @@ endif
 		../../sources/pyside6
 
 ifeq (${PLATFORM},win)
+	cmake --build "${PYSIDE_SRC_DIR}/build/pyside6"
 	cmake --install "${PYSIDE_SRC_DIR}/build/pyside6"
 	cp "${LLVM_INSTALL_DIR}/bin/libclang.dll" "${PYSIDE_PREFIX}/bin/"
 else
