@@ -383,7 +383,11 @@ clean-env.sh:
 
 ${PACKAGE_FILE}: ${PKG_FILES}
 	tar -czf "${PACKAGE_FILE}" ${PKG_FILES}
+ifeq (${PLATFORM},macos)
+	shasum -a 256 "${PACKAGE_FILE}"
+else
 	sha256sum "${PACKAGE_FILE}"
+endif
 
 .PHONY: pkg
 pkg: ${PACKAGE_FILE}
