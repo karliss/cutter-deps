@@ -29,6 +29,7 @@ jobs:
                              llvm-11 \
                              cmake \
                              curl
+        sudo apt remove llvm-10 clang-10
         make
         echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
         echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
