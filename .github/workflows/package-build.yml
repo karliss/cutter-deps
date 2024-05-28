@@ -81,7 +81,7 @@ jobs:
     - name: set windows outputs
       shell: bash
       run: |
-        echo UPLOAD_FILE=cutter-deps-windows-x86_64.tar.gz >> $GITHUB_ENV
+        echo UPLOAD_FILE=cutter-deps-win-x86_64.tar.gz >> $GITHUB_ENV
         echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
     - uses: actions/upload-artifact@v2
       with:
@@ -114,7 +114,7 @@ jobs:
             ]
         include:
           - name: macos-x86_64
-            os: macos-11
+            os: macos-12
             arch: x86_64
           - name: macos-arm64
             os: macos-14
