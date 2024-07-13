@@ -263,7 +263,7 @@ ${PYSIDE_SRC_DIR}:
 	# which would mess up finding the actual modules later.
 	patch "${PYSIDE_SRC_DIR}/sources/pyside6/CMakeLists.txt" patch/pyside-5.15.2/CMakeLists.txt.patch
 
-	patch "${PYSIDE_SRC_DIR}/sources/shiboken6/libshiboken/sbkmodule.cpp" patch/skbmodule_2765.patch
+	#patch "${PYSIDE_SRC_DIR}/sources/shiboken6/libshiboken/sbkmodule.cpp" patch/skbmodule_2765.patch
 
 ifneq (${QT_OPENGL_ENABLED},1)
 	# Patches to remove OpenGL-related source files.
