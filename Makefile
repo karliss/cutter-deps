@@ -22,10 +22,10 @@ endif
 PKG_FILES=pyside
 
 ifeq (${PYTHON_WINDOWS},)
-PYTHON_VERSION=3.12.3
+PYTHON_VERSION=3.12.4
 PYTHON_VERSION_MAJOR_MINOR=3.12
 PYTHON_SRC_FILE=Python-${PYTHON_VERSION}.tar.xz
-PYTHON_SRC_SHA256=56bfef1fdfc1221ce6720e43a661e3eb41785dd914ce99698d8c7896af4bdaa1
+PYTHON_SRC_SHA256=f6d419a6d8743ab26700801b4908d26d97e8b986e14f95de31b32de2b0e79554
 
 PYTHON_SRC_URL=https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz
 PYTHON_SRC_DIR=Python-${PYTHON_VERSION}
@@ -62,10 +62,10 @@ ifeq (${QT_PREFIX},)
 QT_BIN_FILE=cutter-deps-qt-${PLATFORM}-${ARCH}.tar.gz
 PACKAGE_FILE=cutter-deps-${PLATFORM}-${ARCH}.tar.gz
 QT_BIN_URL=https://github.com/karliss/cutter-deps-qt/releases/download/test1/${QT_BIN_FILE}
-QT_BIN_SHA256_linux_x86_64=69cd4a410aca307a7ec42ba716b4e418c39f3759544ec190b693ea559e5fd9d0
-QT_BIN_SHA256_macos_arm64=4bb2db9edea364dff4a3e15d4aa79979bdb169e838561efe76074d6b4c5da87f
-QT_BIN_SHA256_macos_x86_64=8045f3741475880ee377ffccc4e1f99dad9df9e2cf27668ba76ed8f98ed3bbde
-QT_BIN_SHA256_win_x86_64=d86dd5b8e4d07241323df443d06b9bdfa44467382f9a9566d31b06f65ff41565
+QT_BIN_SHA256_linux_x86_64=c27175f759a38385750bbe5c872b44eadb0e2f17055281c07851197341393a81
+QT_BIN_SHA256_macos_arm64=4a308d3c460965111686ca2ee8c1cfe13aa6ee8b9ef17f668e07b4af5997a2f8
+QT_BIN_SHA256_macos_x86_64=f9e05afa0318b301f700868d297309fdb5cad9f8042793e5cfcb4d3e7128539c
+QT_BIN_SHA256_win_x86_64=693786cba68ec945b096fc1b07c5aa76eb003883d807e9b9c41f095a2f672226
 QT_BIN_SHA256=${QT_BIN_SHA256_${PLATFORM}_${ARCH}}
 QT_BIN_DIR=qt
 QT_PREFIX:=${ROOT_DIR}/${QT_BIN_DIR}
@@ -78,14 +78,14 @@ QT_OPENGL_ENABLED:=1
 QT_DEPS=
 endif
 
-QT_VERSION=6.7.1
+QT_VERSION=6.7.2
 ifeq (${PLATFORM},win)
   # Windows has some issues with symlinks in the tarball
   PYSIDE_SRC_FILE=pyside-setup-everywhere-src-${QT_VERSION}.zip
-  PYSIDE_SRC_SHA256=6236414b47fda0e926c374e5a4021d7af4a41aed881cde1556e43409b7dd73dd
+  PYSIDE_SRC_SHA256=cde443ce209787e0008a2c510d9d390423ea8876083b356d8148272c1234c102
 else
   PYSIDE_SRC_FILE=pyside-setup-everywhere-src-${QT_VERSION}.tar.xz
-  PYSIDE_SRC_SHA256=6f33de37f4121e547064023edb344b95e2ab454234fa8fce27ea73df96f933cd
+  PYSIDE_SRC_SHA256=3a2b0d0d6e78c9aa5ddc7f06ca4b6f11a3fe14560baeb148eea53b5d98e368c7
 endif
 PYSIDE_SRC_URL=https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-${QT_VERSION}-src/${PYSIDE_SRC_FILE}
 PYSIDE_SRC_DIR=pyside-setup-everywhere-src-${QT_VERSION}
@@ -262,7 +262,6 @@ ${PYSIDE_SRC_DIR}:
 	# Patch needed, so the PySide2 CMakeLists.txt doesn't search for Qt5UiTools and other stuff,
 	# which would mess up finding the actual modules later.
 	patch "${PYSIDE_SRC_DIR}/sources/pyside6/CMakeLists.txt" patch/pyside-5.15.2/CMakeLists.txt.patch
-	# echo "" > "${PYSIDE_SRC_DIR}/sources/pyside2/cmake/Macros/FindQt5Extra.cmake"
 
 	patch "${PYSIDE_SRC_DIR}/sources/shiboken6/libshiboken/sbkmodule.cpp" patch/skbmodule_2765.patch
 
@@ -317,10 +316,6 @@ endif
 	@echo "# Building PySide       #"
 	@echo "#########################"
 	@echo ""
-
-	#TODO: cleanup this
-	#-DCMAKE_PREFIX_PATH="${QT_PREFIX};${PYSIDE_PREFIX}" 
-	#-DCMAKE_PREFIX_PATH="D:/a/cutter-deps/cutter-deps/qt;D:/a/cutter-deps/cutter-deps/pyside"
 
 	@echo ${EXTRA_CMAKE_PREFIX}
 

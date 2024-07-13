@@ -17,4 +17,4 @@ echo $PATH
 which gcc || echo "No GCC in path, OK!"
 
 
-make PLATFORM=win "PYTHON_WINDOWS=/C/hostedtoolcache/windows/Python/3.11.9/x64/"
+make PLATFORM=win "PYTHON_WINDOWS=/C/hostedtoolcache/windows/Python/3.12.4/x64/"
