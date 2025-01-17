@@ -3,12 +3,12 @@ name: package build
 on:
   push:
     branches:
-    - master
+    - qt5
     tags:
-    - v*
+    - qt5-v*
   pull_request:
     branches:
-    - master
+    - qt5
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -46,7 +46,7 @@ jobs:
         make
         echo UPLOAD_FILE=cutter-deps-linux-x86_64.tar.gz >> $GITHUB_ENV
         echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         name: ${{ env.UPLOAD_FILE }}
         path: ${{ env.UPLOAD_FILE }}
@@ -67,54 +67,3 @@ jobs:
           asset_name: ${{ env.UPLOAD_FILE }}
           asset_content_type: ${{ env.UPLOAD_ASSET_TYPE }}
 
-  build-macos:
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-    steps:
-    - uses: actions/checkout@v3
-    - name: build macos
-      run: |
-        set -euo pipefail
-        brew install llvm ccache
-        export PATH="/usr/local/opt/llvm/bin:$PATH";
-        echo "###### Applications ######"
-        ls /Applications
-        echo "###### XCode Info ######"
-        sudo xcode-select --reset
-        export BUILD_SDK_PATH=$(xcrun --show-sdk-path)
-        echo "$BUILD_SDK_PATH"
-        echo "###### xcode-select Info ######"
-        xcode-select -print-path
-        echo "###### LLVM Info ######"
-        which llvm-config
-        llvm-config --version
-        echo "###### Make ######"
-        export MACOSX_DEPLOYMENT_TARGET=11.0
-        export MIN_SUPPORTED_MACOSX_DEPLOYMENT_TARGET=11.0
-        export CFLAGS=" -isysroot $BUILD_SDK_PATH "
-        export CCFLAGS=" -isysroot $BUILD_SDK_PATH "
-        export CXXFLAGS=" -isysroot $BUILD_SDK_PATH "
-        make
-        echo UPLOAD_FILE=cutter-deps-macos-x86_64.tar.gz >> $GITHUB_ENV
-        echo UPLOAD_ASSET_TYPE=application/gzip >> $GITHUB_ENV
-    - uses: actions/upload-artifact@v2
-      with:
-        name: ${{ env.UPLOAD_FILE }}
-        path: ${{ env.UPLOAD_FILE }}
-    - name: Get release
-      if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
-      id: get_release
-      uses: karliss/get-release@bee343636450eb2e9b85d9f1592d8d73c408dc74
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload release assets
-      if: steps.get_release.outputs.upload_url != null
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-          upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ${{ env.UPLOAD_FILE }}
-          asset_name: ${{ env.UPLOAD_FILE }}
-          asset_content_type: ${{ env.UPLOAD_ASSET_TYPE }}
