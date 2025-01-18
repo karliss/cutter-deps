@@ -60,9 +60,8 @@ ${PATCHELF_SRC_DIR}_target=PATCHELF_SRC
 ifeq (${QT_PREFIX},)
 QT_BIN_FILE=cutter-deps-qt5-${PLATFORM}-${ARCH}.tar.gz
 PACKAGE_FILE=cutter-deps-q5-${PLATFORM}-${ARCH}.tar.gz
-# TODO: update URL and hash
-QT_BIN_URL=https://github.com/karliss/cutter-deps-qt/releases/download/test1/${QT_BIN_FILE}
-QT_BIN_SHA256_linux_x86_64=1e879c1cbb7eee3002512a58e8f385139b7eb4f895b4afeab5002baf2c28f474
+QT_BIN_URL=https://github.com/rizinorg/cutter-deps-qt/releases/download/qt5-v15/${QT_BIN_FILE}
+QT_BIN_SHA256_linux_x86_64=1998021a210b8e912e995238da20a75dc18f7add97a44c43ad95e5473f8dd024
 QT_BIN_SHA256_macos_arm64=895cd5f8c557f28a040b0c8b620498f1a09f86daa4f026fc445c16dd42fa503e
 QT_BIN_SHA256_macos_x86_64=fe92b328492024ed2a02bfc6b154929a46e02eaa78843f7a0d916c703cce6185
 QT_BIN_SHA256_win_x86_64=a852631a9f24ac4498bc9c7927004627efe766b2e1486fc2bc96c9b10274a4b6
